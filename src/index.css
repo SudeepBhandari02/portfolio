@@ -67,7 +67,7 @@
   }
 
   .hero-heading {
-    @apply uppercase font-black text-7xl sm:right-10 sm:text-7xl md:text-[14rem] lg:text-[7rem];
+    @apply uppercase text-yellow-300 font-black text-8xl sm:right-10 sm:text-[6rem] md:text-[8rem] lg:text-[10rem] -tracking-tight;
     font-family: var(--font-zentry);
   }
 

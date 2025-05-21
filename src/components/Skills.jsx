@@ -6,14 +6,14 @@ const Skills = () => {
   return (
     <div id="skills" className="min-h-dvh w-screen bg-[#5542ff] text-blue-50">
       <div className="flex w-full lg:h-[80vh] flex-col items-center py-10 pb-24">
-        <p className="font-general text-sm uppercase md:text-lg">
+        <p className="font-general text-sm uppercase md:text-md">
           Welcome to Skills section
         </p>
 
         <div className="relative size-full">
           <AnimatedTitle
             title="<b>Skills</b>"
-            containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
+            containerClass="mt-5 pointer-events-none text-[#eaff29] relative z-10"
           />
 
           <div className="w-full h-auto grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 max-md:px-10 px-20 py-10 gap-6">

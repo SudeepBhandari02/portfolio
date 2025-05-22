@@ -5,41 +5,37 @@ import { useEffect, useRef, useState } from "react";
 import { FaBarsStaggered,FaXmark,FaDownload } from "react-icons/fa6";
 import profileImage from "../assets/images/profileImage.png";
 import resume from "../assets/Sudeep_Bhandari_Resume.pdf";
-
-import Button from "./Button";
+import { useGSAP } from "@gsap/react";
 import AnimatedNavbar from "./AnimatedNavbar";
+import AnimatedTitle from "./AnimatedTitle";
 
-const navItems = ["Hero", "About", "Projects", "Skills", "Contact"];
+
 
 const NavBar = () => {
-  // State for toggling audio and visual indicator
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-
-  // Refs for audio and navigation container
-  const audioElementRef = useRef(null);
-  const navContainerRef = useRef(null);
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Toggle audio and visual indicator
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
+  const audioElementRef = useRef(null);
+  const navContainerRef = useRef(null);
+  const smallNavRef = useRef(null);
 
-  // Manage audio playback
-  useEffect(() => {
+  const { y: currentScrollY } = useWindowScroll();
+
+   useEffect(() => {
     if (isAudioPlaying) {
       audioElementRef.current.play();
     } else {
       audioElementRef.current.pause();
     }
   }, [isAudioPlaying]);
+
+  const toggleAudioIndicator = () => {
+    setIsAudioPlaying((prev) => !prev);
+    setIsIndicatorActive((prev) => !prev);
+  };
 
   useEffect(() => {
     if (currentScrollY === 0) {
@@ -66,6 +62,50 @@ const NavBar = () => {
       duration: 0.2,
     });
   }, [isNavVisible]);
+
+useEffect(() => {
+  if (smallNavRef.current) {
+    if (isMenuOpen) {
+      gsap.fromTo(
+        smallNavRef.current,
+        { x: -300 },
+        { x: 0, duration: 0.5, ease: "power2.out" }
+      );
+    } else {
+      gsap.to(smallNavRef.current, {
+        x: -300,
+        duration: 0.5,
+        ease: "power2.in"
+      });
+    }
+  }else{
+    console.log(smallNavRef.current);
+    
+  }
+}, [isMenuOpen]);
+
+
+  
+  const navItems = ["Hero", "About", "Projects", "Skills", "Contact"];
+
+  
+
+  // Refs for audio and navigation container
+  
+  
+
+  
+  
+
+  // Toggle audio and visual indicator
+  
+
+  // Manage audio playback
+ 
+
+  
+
+
 
   return (
     <div
@@ -121,34 +161,43 @@ const NavBar = () => {
                 />
               ))}
             </button>
-            <button 
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-             className="block md:hidden text-white relative">
-              {isMenuOpen ? 
-              // <div className=" fixed w-min-screen h--min-screen bg-gray-800 z-50 flex px-2 py-1 items-start animate-[wiggle_1s_ease-in-out_infinite]">
-              //   <div className="flex justify-end w-full ">
-              //     <FaBarsStaggered/>
-              //   </div>
-                  
-              // </div> 
-              <div className="fixed inset-0 bg-white hidden lg:hidden" id="smallNav">
-                <div className="flex flex-col items-center justify-center h-full">
-                  <div className="flex flex-col gap-4">
+            {isMenuOpen ? (
+              <div
+                onClick={() => {
+                          setIsMenuOpen((prev) => !prev);
+                        }}
+                ref={smallNavRef}
+                className="fixed inset-0 bg-black z-50 md:hidden h-screen w-screen"
+              >
+                <div className="flex flex-col items-center py-8 h-full">
+                  <div className="flex flex-col gap-8">
+                    <div className="w-full px-4 flex items-center justify-end ">
+                      <div
+                      className="cursor-pointer text-white"
+                      >
+                        <FaXmark size={40} />
+                      </div>
+                    </div>
                     {navItems.map((item, index) => (
                       <a
                         key={index}
                         href={`#${item.toLowerCase()}`}
-                        className="nav-hover-btn"
+                        className="nav-hover-btn my-2"
                       >
-                        {item}
+                        <AnimatedTitle title={item} />
                       </a>
                     ))}
                   </div>
                 </div>
-            </div>
-              : 
-              <FaXmark /> } 
-            </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setIsMenuOpen(true)}
+                className="block md:hidden text-white relative"
+              >
+                <FaBarsStaggered size={40} />
+              </button>
+            )}
             </div>
           </div>
         </nav>

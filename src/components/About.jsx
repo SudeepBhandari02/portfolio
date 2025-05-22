@@ -8,24 +8,42 @@ import AnimatedTitle from "./AnimatedTitle";
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  useGSAP(() => {
-    const clipAnimation = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#clip",
-        start: "center center",
-        end: "+=800 center",
-        scrub: 0.5,
-        pin: true,
-        pinSpacing: true,
-      },
-    });
 
-    clipAnimation.to(".mask-clip-path", {
-      width: "100vw",
-      height: "100vh",
-      borderRadius: 0,
-    });
-  });
+  const handleMouseMove = (e) => { 
+    // const { innerWidth, innerHeight } = window;
+    // const rotateX = (e.clientY / innerHeight - 0.5) * 50;
+    // const rotateY = (e.clientX / innerWidth - 0.5) * 50;
+    // const translateX = (e.clientX / innerWidth - 0.5) * 50;
+    // const translateY = (e.clientY / innerHeight - 0.5) * 50;
+
+    // gsap.to(".mask-clip-path", {
+    //   rotateX: -rotateX,
+    //   rotateY,
+    //   translateX,
+    //   translateY,
+    //   duration: 0.4,
+    //   ease: "power2.out",
+    // });
+  };
+
+
+
+  useGSAP(() => {
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: "#clip",
+      start: "center center",
+      end: "+=800 center",
+      scrub: 0.5,
+      pin: true,
+      pinSpacing: true,
+    },
+  })
+  .fromTo(".mask-clip-path",
+    { clipPath: "circle(0% at 50% 50%)" },
+    { clipPath: "circle(100% at 50% 50%)", ease: "linear" }
+  );
+});
 
   return (
     <div id="about" className="min-h-screen w-screen">
@@ -51,8 +69,8 @@ const About = () => {
         </div>
       </div>
 
-      <div className="h-dvh w-screen" id="clip">
-        <div className="mask-clip-path about-image">
+      <div className="h-dvh w-screen " id="clip">
+        <div onMouseMove={handleMouseMove} className="mask-clip-path w-full h-full absolute-center">
           <img
             src={devWorldImage}
             alt="Background"

@@ -72,19 +72,14 @@ const ClipButton = ({ title, leftIcon, rightIcon }) => {
         }}
         className="text-gray-800 px-6 py-3 text-lg font-robert-regular tracking-wider font-semibold group rounded-lg transition-all duration-300 cursor-pointer hover:bg-black hover:text-[#5542ff]"
       >
-        {/* <button className="px-2 py-1 flex items-center justify-center gap-2 rounded-xl border-1 border-gray-950 group-hover:border-none whitespace-nowrap">
-          {leftIcon?leftIcon:""}
-          <p className="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">{title}</p>
-          {rightIcon?rightIcon:""}
-        </button> */}
-        <button class="cursor-pointer  px-2 py-1 rounded-xl border-[1px] border-slate-800 text-gray-900 group-hover:text-[#5542ff] font-semibold group-hover:border-none whitespace-nowrap flex items-center justify-center shadow-lg">
-          <div class="relative overflow-hidden">
-            <p class="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] flex items-center justify-center gap-2">
+        <button className="cursor-pointer  px-2 py-1 rounded-xl border-[1px] border-slate-800 text-gray-900 group-hover:text-[#5542ff] font-semibold group-hover:border-none whitespace-nowrap flex items-center justify-center shadow-lg">
+          <div className="relative overflow-hidden">
+            <p className="group-hover:-translate-y-7 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)] flex items-center justify-center gap-2">
               {leftIcon?leftIcon:""}
               {title}
               {rightIcon?rightIcon:""}
             </p>
-            <p class="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
+            <p className="absolute top-7 left-0 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.19,1,0.22,1)]">
               {leftIcon?leftIcon:""}
               {title}
               {rightIcon?rightIcon:""}

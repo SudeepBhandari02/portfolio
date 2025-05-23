@@ -42,11 +42,31 @@
   }
 
   .nav-hover-btn {
-    @apply relative ms-10 text-xs uppercase text-blue-50 cursor-pointer;
+    @apply relative ms-10 font-general text-xs uppercase text-blue-50 after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white cursor-pointer;
   }
+
+  .text-stroke {
+    color: white; /* Fill color */
+  text-shadow:
+    -0.5px -0.5px 0 black,
+     0.5px -0.5px 0 black,
+    -0.5px  0.5px 0 black,
+     0.5px  0.5px 0 black;
+  }
+  .text-stroke:hover{
+    color:black;
+    text-shadow:none;
+  }
+
 
   .floating-nav {
     @apply bg-black rounded-lg border;
+    .nav-item{
+      @apply text-white; 
+    }
+    .nav-item:hover{
+      @apply text-black;
+    }
   }
 
   .absolute-center {
@@ -58,8 +78,9 @@
   }
 
   .mask-clip-path {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    clip-path: circle(10% at 50% 50%);
   }
+
 
   .special-font b {
     font-family: var(--font-zentry);
@@ -72,12 +93,12 @@
   }
 
   .about-subtext {
-    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center text-lg md:max-w-[34rem];
+    @apply absolute bottom-30  left-1/2 w-full max-w-96 -translate-x-1/2 text-center text-lg md:max-w-[34rem];
     font-family: var(--font-circular-web);
   }
 
   .about-image {
-    @apply absolute left-1/2 top-0 z-20 h-[60vh] w-96 -translate-x-1/2 overflow-hidden rounded-3xl md:w-[30vw];
+    @apply absolute left-1/2 top-0 z-20 h-[80vh] w-[60vw] -translate-x-1/2 overflow-hidden rounded-3xl md:w-[50vw];
   }
 
   .animated-title {
@@ -93,11 +114,11 @@
   }
 
   .bento-tilt_1 {
-    @apply relative col-span-2 overflow-hidden rounded-md transition-transform duration-300 ease-out border border-white/20;
+    @apply relative overflow-hidden rounded-md transition-transform duration-300 ease-out border border-white/20;
   }
 
   .bento-tilt_2 {
-    @apply relative col-span-1 row-span-1 overflow-hidden rounded-md transition-transform duration-300 ease-out;
+    @apply relative  overflow-hidden rounded-md transition-transform duration-300 ease-out;
   }
 
   .bento-title {

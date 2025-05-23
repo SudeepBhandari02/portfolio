@@ -1,5 +1,3 @@
-import AnimatedTitle from "./AnimatedTitle";
-import Button from "./Button";
 
 const ImageClipBox = ({ src, clipClass }) => (
   <div className={clipClass}>
@@ -36,10 +34,6 @@ const Contact = () => {
         <div className="flex flex-col h-full items-center text-center">
           <p className="mb-10 font-general text-[10px] uppercase">Join Me</p>
 
-          {/* <AnimatedTitle
-            title="let&#39;s b<b>u</b>ild a <br /> new era of <br />tec<b>h</b>n<b>o</b>l<b>o</b>gy."
-            className="special-font !md:text-4xl w-full font-zentry !text-2xl !font-black !leading-[.9]"
-          /> */}
           <h1 className="special-font md:text-[3rem] w-full font-zentry text-2xl font-black leading-[.9]">
             let&#39;s b<b>u</b>ild a <br /> new era of <br />
             tec<b>h</b>n<b>o</b>l<b>o</b>gy.{" "}
@@ -53,7 +47,7 @@ const Contact = () => {
                 </h2>
                 <form>
                   <div className="mb-4">
-                    <label className="block text-white font-robert-regular text-start mb-1" for="name">
+                    <label className="block text-white font-robert-regular text-start mb-1" htmlFor="name">
                       Your Name
                     </label>
                     <input
@@ -63,7 +57,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-white font-robert-regular text-start mb-1" for="email">
+                    <label className="block text-white font-robert-regular text-start mb-1" htmlFor="email">
                       Your Email
                     </label>
                     <input
@@ -75,7 +69,7 @@ const Contact = () => {
                     />
                   </div>
                   <div className="mb-4">
-                    <label className="block text-white font-robert-regular text-start mb-1" for="message">
+                    <label className="block text-white font-robert-regular text-start mb-1" htmlFor="message">
                       Your Message
                     </label>
                     <textarea

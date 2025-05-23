@@ -29,7 +29,6 @@ function App() {
 
   return (
     <main className='relative min-h-screen w-full overflow-x-hidden'>
-      
       <NavBar/>
       <Hero/>
       <About/>
@@ -37,7 +36,6 @@ function App() {
       <Skills/>
       <Contact/>
       <Footer/>
-      <section className='z-10 min-h-screen bg-blue-500'></section>
     </main>
   )
 }

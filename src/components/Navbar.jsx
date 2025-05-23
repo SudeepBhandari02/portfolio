@@ -2,19 +2,19 @@ import clsx from "clsx";
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
-import { FaBarsStaggered,FaXmark,FaDownload } from "react-icons/fa6";
+import { FaBarsStaggered, FaXmark, FaDownload } from "react-icons/fa6";
+import { FaHeadphonesAlt } from "react-icons/fa";
 import profileImage from "../assets/images/profileImage.png";
 import resume from "../assets/Sudeep_Bhandari_Resume.pdf";
 import { useGSAP } from "@gsap/react";
 import AnimatedNavbar from "./AnimatedNavbar";
 import AnimatedTitle from "./AnimatedTitle";
 
-
-
 const NavBar = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -24,7 +24,7 @@ const NavBar = () => {
 
   const { y: currentScrollY } = useWindowScroll();
 
-   useEffect(() => {
+  useEffect(() => {
     if (isAudioPlaying) {
       audioElementRef.current.play();
     } else {
@@ -63,49 +63,24 @@ const NavBar = () => {
     });
   }, [isNavVisible]);
 
-useEffect(() => {
-  if (smallNavRef.current) {
+  useEffect(() => {
     if (isMenuOpen) {
       gsap.fromTo(
         smallNavRef.current,
         { x: -300 },
         { x: 0, duration: 0.5, ease: "power2.out" }
       );
-    } else {
+    } else if (smallNavRef.current) {
       gsap.to(smallNavRef.current, {
         x: -300,
         duration: 0.5,
-        ease: "power2.in"
+        ease: "power2.in",
+        onComplete: () => setShowMenu(false), // hide only after animating out
       });
     }
-  }else{
-    console.log(smallNavRef.current);
-    
-  }
-}, [isMenuOpen]);
+  }, [isMenuOpen]);
 
-
-  
   const navItems = ["Hero", "About", "Projects", "Skills", "Contact"];
-
-  
-
-  // Refs for audio and navigation container
-  
-  
-
-  
-  
-
-  // Toggle audio and visual indicator
-  
-
-  // Manage audio playback
- 
-
-  
-
-
 
   return (
     <div
@@ -118,86 +93,80 @@ useEffect(() => {
           <div className="flex items-center gap-7">
             <img src={profileImage} alt="logo" className="w-16" />
 
-            <a href={resume} download={resume} className="hidden md:flex items-center justify-center gap-1 bg-blue-50 rounded-full px-4 py-2">
-              <FaDownload className="text-gray-800"/>
+            <a
+              href={resume}
+              download={resume}
+              className="hidden md:flex items-center justify-center gap-1 bg-blue-50 rounded-full px-4 py-2"
+            >
+              <FaDownload className="text-gray-800" />
               <span className="text-gray-800">Resume</span>
             </a>
           </div>
 
           <div className="flex h-full items-center">
             <div className="hidden md:block">
-              {/* {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
-                </a>
-              ))} */}
-              <AnimatedNavbar/>
+              <AnimatedNavbar />
             </div>
 
             <div className="flex gap-2 items-center">
               <button
-              onClick={toggleAudioIndicator}
-              className="ml-10 flex items-center space-x-0.5 px-4 py-2 cursor-pointer"
-            >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={clsx("indicator-line", {
-                    active: isIndicatorActive,
-                  })}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
-            </button>
-            {isMenuOpen ? (
-              <div
-                onClick={() => {
-                          setIsMenuOpen((prev) => !prev);
-                        }}
-                ref={smallNavRef}
-                className="fixed inset-0 bg-black z-50 md:hidden h-screen w-screen"
+                onClick={toggleAudioIndicator}
+                className="ml-10 flex items-center space-x-0.5 px-4 py-2 cursor-pointer gap-2 text-white outline-none"
               >
-                <div className="flex flex-col items-center py-8 h-full">
-                  <div className="flex flex-col gap-8">
-                    <div className="w-full px-4 flex items-center justify-end ">
-                      <div
-                      className="cursor-pointer text-white"
-                      >
-                        <FaXmark size={40} />
+                <audio
+                  ref={audioElementRef}
+                  className="hidden"
+                  src="/audio/loop.mp3"
+                  loop
+                />
+                <FaHeadphonesAlt />
+                {[1, 2, 3, 4].map((bar) => (
+                  <div
+                    key={bar}
+                    className={clsx("indicator-line", {
+                      active: isIndicatorActive,
+                    })}
+                    style={{
+                      animationDelay: `${bar * 0.1}s`,
+                    }}
+                  />
+                ))}
+              </button>
+              {showMenu ? (
+                <div
+                  onClick={() => setIsMenuOpen(false)}
+                  ref={smallNavRef}
+                  className="fixed inset-0 bg-black z-50 md:hidden h-screen w-screen"
+                >
+                  <div className="flex flex-col items-center py-8 h-full">
+                    <div className="flex flex-col gap-8">
+                      <div className="w-full px-4 flex items-center justify-end">
+                        <div className="cursor-pointer text-white">
+                          <FaXmark size={40} />
+                        </div>
                       </div>
+                      {navItems.map((item, index) => (
+                        <a
+                          key={index}
+                          href={`#${item.toLowerCase()}`}
+                          className="nav-hover-btn my-2"
+                        >
+                          <AnimatedTitle title={item} />
+                        </a>
+                      ))}
                     </div>
-                    {navItems.map((item, index) => (
-                      <a
-                        key={index}
-                        href={`#${item.toLowerCase()}`}
-                        className="nav-hover-btn my-2"
-                      >
-                        <AnimatedTitle title={item} />
-                      </a>
-                    ))}
                   </div>
                 </div>
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsMenuOpen(true)}
-                className="block md:hidden text-white relative"
-              >
-                <FaBarsStaggered size={40} />
-              </button>
-            )}
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowMenu(true);
+                    setIsMenuOpen(true)}}
+                  className="block md:hidden text-white relative"
+                >
+                  <FaBarsStaggered size={40} />
+                </button>
+              )}
             </div>
           </div>
         </nav>

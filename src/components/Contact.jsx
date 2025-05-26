@@ -1,4 +1,4 @@
-
+import React from "react";
 const ImageClipBox = ({ src, clipClass }) => (
   <div className={clipClass}>
     <img src={src} />
@@ -22,11 +22,11 @@ const Contact = () => {
 
         <div className="absolute -top-40 right-1/2 transform translate-x-1/2  w-60 sm:-top-20  md:right-30 md:top-1/2 lg:top-20 lg:w-80 z-30">
           <ImageClipBox
-            src="/img/swordman-partial.webp"
+            src="img/swordman-partial.webp"
             clipClass="absolute md:scale-125"
           />
           <ImageClipBox
-            src="/img/characterCrop.png"
+            src="img/characterCrop.png"
             clipClass="sword-man-clip-path md:scale-125"
           />
         </div>
